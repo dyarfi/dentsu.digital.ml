@@ -65,8 +65,6 @@ class Public_Controller extends MY_Controller {
 		$user_agents['platform']	= $this->agent->platform;
 		$user_agents['browser']		= $this->agent->browser;
 		
-		// Load status code from config
-		$status_code				= $this->load->config('http_code',true);
 		/*
 		if ($public) {
 			// Set ServerLog data
