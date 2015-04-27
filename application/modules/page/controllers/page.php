@@ -110,7 +110,7 @@ class Page extends Admin_Controller {
 
 		//if($page_db->num_rows() == 0) {
 			  //$this->db->insert('pages_lang',array('lang_code' => $lang_id, 'field_id' => $field_id));
-			  redirect(base_url(ADMIN).'/page/index/detail/edit/'.$field_id);
+			  redirect(base_url(ADMIN).'/page/detail/edit/'.$field_id);
 		//}
 		//else {
 			  //redirect(base_url(ADMIN).'/pages/pages_lang/edit/'.$page_db->row()->id);
@@ -136,8 +136,34 @@ class Page extends Admin_Controller {
 		// Set column
 		$crud->columns('subject','name','menu_id','synopsis','text');		
 		$crud->callback_field('lang_id',array($this,'_callback_lang'));
+		// Set table relation
+		$crud->set_relation('menu_id','tbl_page_menus','name');
 		// The fields that user will see on add and edit form
-		$crud->fields('subject','name','page_id','lang_id','synopsis','text');
+		$crud->fields('subject','name','menu_id','lang_id','synopsis','text','added','modified');
+		// Set column display 
+		$crud->display_as('menu_id','Menu');
+		// Changes the default field type
+		$crud->field_type('added', 'hidden');
+		$crud->field_type('modified', 'hidden');
+
+		if ($this->Languages->getActiveCount() > 0) {
+			// Callback_column translate
+			$crud->callback_column('translate',array($this,'_callback_translate'));
+		}
+
+		// This callback escapes the default auto field output of the field name at the add form
+		$crud->callback_add_field('added',array($this,'_callback_time_added'));
+		// This callback escapes the default auto field output of the field name at the edit form
+		$crud->callback_edit_field('modified',array($this,'_callback_time_modified'));
+		// This callback escapes the default auto field output of the field name at the add/edit form. 
+		// $crud->callback_field('status',array($this,'_callback_dropdown'));
+		// This callback escapes the default auto column output of the field name at the add form
+		$crud->callback_column('added',array($this,'_callback_time'));
+		$crud->callback_column('modified',array($this,'_callback_time'));  
+		// Sets the required fields of add and edit fields
+		$crud->required_fields('subject','name','text','status'); 
+		
+		
 		$crud->unset_fields('lang_id','field_id');
 
 		//$this->template->build('admin/grocery_crud', $crud->render());
@@ -147,7 +173,7 @@ class Page extends Admin_Controller {
 	}
 
 	public function _callback_lang ($value, $row) {
-		print_r($value);
+		
 	}
 	
 	public function _callback_translate ($value, $row) {
