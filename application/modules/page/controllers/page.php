@@ -134,37 +134,40 @@ class Page extends Admin_Controller {
 		// Set table relation
 		$crud->set_relation('lang_id','tbl_languages','name');
 		// Set column
-		$crud->columns('subject','name','menu_id','synopsis','text');		
-		$crud->callback_field('lang_id',array($this,'_callback_lang'));
-		// Set table relation
-		$crud->set_relation('menu_id','tbl_page_menus','name');
+		//$crud->columns('subject','name','menu_id','synopsis','text');		
+		//$crud->callback_field('lang_id',array($this,'_callback_lang'));
+		
 		// The fields that user will see on add and edit form
-		$crud->fields('subject','name','menu_id','lang_id','synopsis','text','added','modified');
-		// Set column display 
-		$crud->display_as('menu_id','Menu');
+		$crud->fields('subject','name','synopsis','text','added','modified');
+		
 		// Changes the default field type
+
 		$crud->field_type('added', 'hidden');
 		$crud->field_type('modified', 'hidden');
-
-		if ($this->Languages->getActiveCount() > 0) {
-			// Callback_column translate
-			$crud->callback_column('translate',array($this,'_callback_translate'));
-		}
-
+		$crud->field_type('page_id', 'hidden', $id);
+		$crud->field_type('lang_id', 'hidden', $lang_id);
 		// This callback escapes the default auto field output of the field name at the add form
 		$crud->callback_add_field('added',array($this,'_callback_time_added'));
 		// This callback escapes the default auto field output of the field name at the edit form
 		$crud->callback_edit_field('modified',array($this,'_callback_time_modified'));
+		
+		// This callback escapes the default auto field output of the field name at the edit form
+		$crud->callback_edit_field('page_id',array($this,'_callback_page_id'));
+		// This callback escapes the default auto field output of the field name at the edit form
+		$crud->callback_edit_field('lang_id',array($this,'_callback_lang_id'));
+		
 		// This callback escapes the default auto field output of the field name at the add/edit form. 
 		// $crud->callback_field('status',array($this,'_callback_dropdown'));
+		
 		// This callback escapes the default auto column output of the field name at the add form
 		$crud->callback_column('added',array($this,'_callback_time'));
 		$crud->callback_column('modified',array($this,'_callback_time'));  
+		
 		// Sets the required fields of add and edit fields
 		$crud->required_fields('subject','name','text','status'); 
 		
 		
-		$crud->unset_fields('lang_id','field_id');
+		$crud->unset_fields('lang_id','page_id');
 
 		//$this->template->build('admin/grocery_crud', $crud->render());
 	
@@ -187,7 +190,7 @@ class Page extends Admin_Controller {
 		foreach($this->Languages->getAllLanguage(1) as $lang) {
 			// Find other than the default languages
 			if($lang->default != 1) {
-				$links .= '<a href="'.base_url(ADMIN).'/page/index/detail/edit/'.$row->id.'/'.$lang->id.'" class="fancyframe iframe" title="'.$lang->name.'"><img src="'.base_url('assets/admin/img/flags/'.$lang->prefix.'.png').'"/></a>&nbsp;';
+				$links .= '<a href="'.base_url(ADMIN).'/page/detail/edit/'.$row->id.'/'.$lang->id.'" class="fancyframe iframe" title="'.$lang->name.'"><img src="'.base_url('assets/admin/img/flags/'.$lang->prefix.'.png').'"/></a>&nbsp;';
 			}
 		}
 		return $links;
@@ -205,6 +208,14 @@ class Page extends Admin_Controller {
     public function _callback_time_modified ($value, $row) {
 		$time = time();
 		return '<input type="hidden" maxlength="50" value="'.$time.'" name="modified">';
+    }
+	
+	public function _callback_page_id ($value, $row) {
+		return '<input type="hidden" maxlength="50" value="" name="page_id">';
+    }
+	
+	public function _callback_lang_id ($value, $row) {
+		return '<input type="hidden" maxlength="50" value="" name="lang_id">';
     }
     
     public function _callback_total_image($value, $row) {
