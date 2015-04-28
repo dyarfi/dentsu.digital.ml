@@ -128,8 +128,9 @@ class Languages Extends CI_Model {
 	public function getActiveCount() {
 	    $data = '';
 	    $options = array('status' => 1);
-	    $Q = $this->db->get_where($this->table,$options,1);
-	    $data = $this->db->count_all_results();
+	    $this->db->where($options);
+	    $Q = $this->db->get($this->table);
+		$data = $Q->num_rows();
 	    $Q->free_result();
 	    return $data;
 	}
