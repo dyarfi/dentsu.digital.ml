@@ -83,7 +83,7 @@ class Page extends Admin_Controller {
 				// GC Edit Method. 
 			} else if($state == 'detail') {
 				// GC Edit Method. 
-				exit('asdf');
+				// exit('asdf');
 			} else {
 				// GC List Method
 				/*
@@ -115,45 +115,35 @@ class Page extends Admin_Controller {
 			  //redirect(base_url(ADMIN).'/page/detail/edit/'.$field_id);
 		//}
 		//else {
-			  //redirect(base_url(ADMIN).'/pages/pages_lang/edit/'.$page_db->row()->id);
+			  //redirect(base_url(ADMIN).'/pages/detail/edit/'.$page_db->row()->id);
 		//}
 	}
-
-	function detail($operation = '',$id='',$lang_id='') {
+	
+	function detail($operation = '',$page_id='',$lang_id='') {
 		
 		/* Just make sure that you don't want to redirect him at the page_lang page but at pages */
 		if($operation == '' || $operation == 'list') {
-		   //redirect(strtolower(__CLASS__).'/page/index');
+		   redirect(strtolower(__CLASS__).'/index');
 		}
+		
+		$page_menu = $this->module_menu .' : '. $this->Languages->getLanguage($lang_id)->name;
 		
 		$crud = new grocery_CRUD();
 	
+		// Set query select
+		$crud->where('page_id',$page_id);
+		$crud->where('lang_id',$lang_id);
+		
 		// Set tables
         $crud->set_table('tbl_page_details');
-	
-		// Set query select
-		$crud->where('lang_id',$lang_id);
-		$crud->where('page_id',$id);
 		
-		// Set field type
-        //$crud->field_type('lang_id', 'hidden', $lang_id);
-	
 		// Set subject
-		$crud->set_subject('Translation');                            
-		// Set table relation
-		//$crud->set_relation('page_id','tbl_pages','name');
-		// Set table relation
-		//$crud->set_relation('lang_id','tbl_languages','name');
-		
-		// Set column
-		//$crud->columns('subject','name','menu_id','synopsis','text');		
-		//$crud->callback_field('lang_id',array($this,'_callback_lang'));
+		$crud->set_subject('Translation ' . $page_menu);  
 		
 		// The fields that user will see on add and edit form
 		$crud->fields('page_id','lang_id','subject','name','synopsis','text','added','modified');
 		
 		// Changes the default field type
-
 		$crud->field_type('added', 'hidden');
 		$crud->field_type('modified', 'hidden');
 		$crud->field_type('page_id', 'hidden', $id);
@@ -164,14 +154,6 @@ class Page extends Admin_Controller {
 		// This callback escapes the default auto field output of the field name at the edit form
 		$crud->callback_edit_field('modified',array($this,'_callback_time_modified'));
 		
-		// This callback escapes the default auto field output of the field name at the edit form
-		//$crud->callback_edit_field('page_id',array($this,'_callback_page_id'));
-		// This callback escapes the default auto field output of the field name at the edit form
-		//$crud->callback_edit_field('lang_id',array($this,'_callback_lang_id'));
-		
-		// This callback escapes the default auto field output of the field name at the add/edit form. 
-		// $crud->callback_field('status',array($this,'_callback_dropdown'));
-		
 		// This callback escapes the default auto column output of the field name at the add form
 		$crud->callback_column('added',array($this,'_callback_time'));
 		$crud->callback_column('modified',array($this,'_callback_time'));  
@@ -181,19 +163,45 @@ class Page extends Admin_Controller {
 		
 		$state = $crud->getState();
 		$state_info = $crud->getStateInfo();
-		//print_r($state);
-		//exit;	
+
+		//$crud->callback_update(array($this,'_callback_update_detail'));
+		$crud->unset_list();
 		
-		$crud->callback_update(array($this,'_callback_update_detail'));
-		 
-		//$crud->unset_fields('lang_id','page_id');
 		//print_r($crud);
 		//$this->template->build('admin/grocery_crud', $crud->render());
 	
 		$this->load($crud, 'page_detail');
 		
 	}
+	
+	function translate() {
+		
+		// URI segment for page id
+		$page_id = $this->uri->segment(4);
+		// URI segment for language id
+		$lang_id = $this->uri->segment(5);
+		
+		$this->db->where('lang_id',$lang_id);
+		$this->db->where('page_id',$page_id);
+		
+		$page_db = $this->db->get('tbl_page_details');
 
+		if($page_db->num_rows() == 0)
+		{
+			$object['added']	= time();
+			$object['lang_id']	= $lang_id;
+			$object['page_id']	= $page_id;
+			$object['user_id']  = $this->user->id;
+			$this->db->insert('tbl_page_details',$object);
+			redirect(strtolower(__CLASS__).'/detail/edit/'.$this->db->insert_id());
+		}
+		else
+		{
+			redirect(strtolower(__CLASS__).'/detail/edit/'.$page_db->row()->id);
+		}
+		
+	}
+	
 	public function _callback_lang ($value, $row) {
 		
 	}
@@ -203,7 +211,7 @@ class Page extends Admin_Controller {
 		foreach($this->Languages->getAllLanguage(1) as $lang) {
 			// Find other than the default languages
 			if($lang->default != 1) {
-				$links .= '<a href="'.base_url(ADMIN).'/page/detail/edit/'.$row->id.'/'.$lang->id.'" class="fancyframe iframe" title="'.$lang->name.'"><img src="'.base_url('assets/admin/img/flags/'.$lang->prefix.'.png').'"/></a>&nbsp;';
+				$links .= '<a href="'.base_url(ADMIN).'/page/translate/'.$row->id.'/'.$lang->id.'" class="fancyframe iframe" title="'.$lang->name.'"><img src="'.base_url('assets/admin/img/flags/'.$lang->prefix.'.png').'"/></a>&nbsp;';
 			}
 		}
 		return $links;

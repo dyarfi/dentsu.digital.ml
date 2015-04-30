@@ -130,6 +130,7 @@ $config['modulelist'] = array(
 						'page/index/edit'	=> 'Edit Page',
 						'page/index/delete'	=> 'Delete Page',
 						'page/detail'		=> 'Detail Page',
+						'page/translate'	=> 'Translate Page',
 						'page/index/change'	=> 'Change Page Status',
 						'page/index/export'	=> 'Export Page',
 						'page/index/print'	=> 'Print Page',

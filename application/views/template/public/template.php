@@ -7,9 +7,6 @@
 	
     <!-- Bootstrap Core CSS -->
     <link href="<?php echo base_url();?>assets/public/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-
-	<!--link href="<?php echo base_url();?>assets/public/js/rs-plugin/css/settings.css" media="screen" rel="stylesheet"-->
-	
 	<link href="<?php echo base_url();?>assets/public/css/fancybox/jquery.fancybox.css" rel="stylesheet" type="text/css">
 	
     <!-- Fonts -->
@@ -51,7 +48,6 @@
 	<!-- Core JavaScript Files -->
     <script src="<?php echo base_url();?>assets/public/js/jquery.min.js"></script>
 	<script src="<?php echo base_url();?>assets/public/js/gmap3.min.js"></script>
-	<!--<script src="<?php echo base_url();?>assets/public/js/jquery-ui/jquery-ui.min.js"></script>-->
 	
     <script src="<?php echo base_url();?>assets/public/js/jquery.fancybox.pack.js"></script>
     
@@ -63,9 +59,6 @@
 	<script src="<?php echo base_url();?>assets/public/js/jquery.vide.min.js"></script>
 	<script src="<?php echo base_url();?>assets/public/js/parallax.min.js"></script>
 	<script type="text/javascript" src="<?=base_url();?>assets/public/js/imagesloaded.pkgd.min.js"></script>
-	
-	<!--script src="<?php echo base_url();?>assets/public/js/rs-plugin/js/jquery.themepunch.plugins.min.js"></script>
-	<script src="<?php echo base_url();?>assets/public/js/rs-plugin/js/jquery.themepunch.revolution.min.js"></script-->
 	
     <!-- Custom Theme JavaScript -->
     <script src="<?php echo base_url();?>assets/public/js/custom.js"></script>

@@ -146,6 +146,7 @@ class Languages Extends CI_Model {
 
 	    $this->db->insert($this->table, $data);
 		
+		return $this->db->insert_id();
 	}
 	
 	public function setStatus($id=null,$status=null) {

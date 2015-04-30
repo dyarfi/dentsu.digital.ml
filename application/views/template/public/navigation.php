@@ -29,6 +29,23 @@
 			</ul>
 		</div>
 		
+		<div class="navbar navbar-right">
+			<ul class="list-inline">
+				<?php foreach ($languages as $language) { 
+				if ($language->default == 1) {
+				?>
+				<li><?php echo $language->name;?></li>
+				<?php
+				} else {
+				?>
+				<li><a href="#"><?php echo $language->name;?></a></li>
+				<?php } 
+				}
+				?>
+			</ul>
+			
+		</div>
+		
 		<!-- /.navbar-collapse -->
 	</div>
 	<!-- /.container -->

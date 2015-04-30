@@ -23,7 +23,7 @@
 //print_r($record);
 //echo '</pre>';
 
-class home extends Public_Controller {
+class Home extends CI_Controller {
 
 	public function __construct() {
 		parent::__construct();
@@ -32,6 +32,8 @@ class home extends Public_Controller {
 		$this->load->model('admin/Users');
 		$this->load->model('admin/UserProfiles');
 		
+		// Load Language list
+		$this->load->model('admin/Languages');
 		// Load Setting data
 		$this->load->model('admin/Settings');
 		
@@ -76,7 +78,12 @@ class home extends Public_Controller {
 	
 	public function index() {
 		
-					
+		// Set Language list
+		$data['languages']	= $this->Languages->getAllLanguage();
+		
+		// Set menus
+		$data['menus']		= $this->Pagemenus->getAllPageMenu();
+		
 		// Set site title page with module menu
 		$data['page_title'] = $this->config->item('developer_name') .' | '. $this->Settings->getByParameter('title_default')->value;
 		
@@ -102,7 +109,7 @@ class home extends Public_Controller {
 		$data['main'] = 'home';
 		
 		// Load site template
-		$this->load->view('template/public/site_template', $this->load->vars($data));		
+		$this->load->view('template/public/template', $this->load->vars($data));		
 		
 	}
 	
@@ -113,6 +120,7 @@ class home extends Public_Controller {
 		
 		// Set pages data
 		$data['pages'] = $this->Pagemenus->getPagesByMenu($menu);
+		print_r($data['pages']);
 		//exit('asdf');
 		// Set main template
 		$data['main'] = 'home';

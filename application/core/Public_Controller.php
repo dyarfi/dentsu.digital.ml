@@ -86,11 +86,11 @@ class Public_Controller extends MY_Controller {
 			);
 		}*/
 		//echo '<pre>';
-		print_r($this->output->set_status_header());
-		exit;
+		//print_r($this->output->set_status_header());
+		//exit;
 		//echo '</pre>';
 		// Get value from tbl_configurations for maintenance
-		if ($this->ServerLogs->setServerLog($object)) { }
+		//if ($this->ServerLogs->setServerLog($object)) { }
 	}
 	
 }
