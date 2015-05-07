@@ -92,6 +92,8 @@ $route['default_controller'] = 'home';
 //$route['(:any)/page/(:any)'] = 'home/page/$1/$2';
 $route['download/(:num)']	 = 'download';
 $route['404_override']		 = '';
+$route['language/(:any)']    = "language";
+$route['(:any)']	 	 	 = 'content/view/$1';
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

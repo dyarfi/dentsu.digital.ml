@@ -23,7 +23,7 @@
 //print_r($record);
 //echo '</pre>';
 
-class Home extends CI_Controller {
+class Home extends Public_Controller {
 
 	public function __construct() {
 		parent::__construct();
@@ -43,6 +43,8 @@ class Home extends CI_Controller {
 		// Load User related model in admin module
 		$this->load->model('page/Pagemenus');
 		$this->load->model('page/Pages');
+		
+		$this->load->model('Content');
 		
 		/*
 		// Load IP2Location Class file without calling the _construct method
@@ -72,6 +74,8 @@ class Home extends CI_Controller {
 		//print_r($this->session);
 
 		//$this->template->set_theme('default');
+		
+		//print_r($this->Content->getContent('page_details'));
 		
 		
 	}

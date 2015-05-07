@@ -3,6 +3,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
+	<meta name="google" content="notranslate" />
 	<title><?php echo $page_title; ?></title>
 	
     <!-- Bootstrap Core CSS -->
@@ -24,26 +25,24 @@
 	
 	<div id="wrapper">
 		
-			<?php $this->load->view('template/public/header'); ?>
-	
-			<div id="navigation">
-				<?php $this->load->view('template/public/navigation'); ?>
+		<?php $this->load->view('template/public/header'); ?>
+
+		<div id="navigation">
+			<?php $this->load->view('template/public/navigation'); ?>
+		</div>
+
+		<div id="main">
+			<div class="messageFlash">
+				<?php $this->load->view('flashdata'); ?>
 			</div>
-		
-			<div id="main">
-				<div class="messageFlash">
-					<?php $this->load->view('flashdata'); ?>
-				</div>
-				<div class="content">
-					<?php $this->load->view($main); ?>
-				</div>
+			<div class="content">
+				<?php $this->load->view($main); ?>
 			</div>
+		</div>
 	
 	<?php $this->load->view('template/public/footer'); ?>
 		
 	</div>    
-	
-	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
 	
 	<!-- Core JavaScript Files -->
     <script src="<?php echo base_url();?>assets/public/js/jquery.min.js"></script>
@@ -65,4 +64,3 @@
 	
 </body>
 </html>
-<?php echo $this->benchmark->memory_usage();?>

@@ -1,0 +1,49 @@
+html { text-rendering: optimizeLegibility; }
+body {
+	font-family:"Gotham-Book";
+	background:#fcf6ea url("../img/background1.jpg") left top repeat-x;
+}
+.starter-template {
+	padding: 40px 15px;
+	text-align: center;
+}
+.navbar-kewpie {
+	background:transparent url("../img/nav.png") center top no-repeat;
+}
+.navbar-kewpie .icon-bar {
+    background-color: white !important;
+}
+.content {
+	margin:140px auto 0 auto;
+}
+.navbar {
+	font-family:"Courier_new";
+}
+.navbar #navbar {
+	text-transform:uppercase;
+	font-size:1.3em;
+}
+.navbar #navbar ul li { width:18%; top:8px; }
+.navbar #navbar a {
+	line-height:0.8em !important;
+	color:#684b31;
+	font-weight: bold;
+	text-align:center;
+	height:50px;
+	margin-top:0px;
+	padding-top:14px
+}
+.navbar #navbar ul li.divider { 
+    border-right-width: 1px;
+    border-right-style: solid;
+    -webkit-border-image: 
+      -webkit-gradient(linear, 0 100%, 0 0, from(#a29181), to(rgba(0, 0, 0, 0))) 1 100%;
+    -webkit-border-image: 
+      -webkit-linear-gradient(bottom, #a29181, rgba(0, 0, 0, 0)) 1 100%;
+    -moz-border-image:
+      -moz-linear-gradient(bottom, #a29181, rgba(0, 0, 0, 0)) 1 100%;  
+    -o-border-image:
+      -o-linear-gradient(bottom, #a29181, rgba(0, 0, 0, 0)) 1 100%;
+    border-image:
+      linear-gradient(to top, #a29181, rgba(0, 0, 0, 0)) 1 100%;
+}

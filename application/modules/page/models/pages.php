@@ -111,6 +111,21 @@ class Pages Extends CI_Model {
 		return $data;
 	}	
 	
+	public function getAllPageByMenu($menu=null){
+		$data = array();
+		$this->db->order_by('added');
+		$this->db->where('menu_id',$menu);
+		$Q = $this->db->get($this->table);
+			if ($Q->num_rows() > 0){
+				//foreach ($Q->result_object() as $row){
+					//$data[] = $row;
+				//}
+				$data = $Q->result_object();
+			}
+		$Q->free_result();
+		return $data;
+	}	
+	
 	public function setPage($object=null){
 		
 		// Set Page data

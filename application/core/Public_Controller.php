@@ -2,17 +2,20 @@
 
 class Public_Controller extends MY_Controller {
 	
+	var	$language ='';
+	
     function __construct() {
 		
         parent::__construct();
         
         // Get libraries from system
-        $this->load->library('user_agent');
-		//$this->load->library('Template');
+		// $this->load->library('Template');
 
 		// Load site models
 		$this->load->model('admin/Configurations');
+		$this->load->model('admin/Settings');
 		$this->load->model('admin/ServerLogs');
+		$this->load->model('admin/Languages');
 		
 		// Set site status default
 		self::getSiteStatus();
@@ -36,13 +39,47 @@ class Public_Controller extends MY_Controller {
 			// $this->template->set_theme('default');
 		}
 
-		//$this->template->theme  	= 'default';
-		//$this->template->title  	= 'Page Title';
-		//$this->template->meta_data  = array();
+		//$this->config->set_item('language', 'item_value');
+		
+		//print_r($this->config->set_item('language', $this->Languages->getDefault()->url));
+		
+		//print_r(config_item('language'));
+		
+		//$this->config->set_item('language', $this->Languages->getDefault()->url);
+		
+		//$this->lang->load('label', config_item('language'));
+		
+		// Get language cookie
+		$cookie = get_cookie('language');
+		
+		// Check if cookie language if already set
+		if (!$cookie) {
+		
+			// Set expired time for about a month
+			$time_expired = 7200 + 60 * 60 * 24 * 30;
+			
+			// Set language from database 
+			$this->config->set_item('language', $this->Languages->getDefault()->url);
+			
+			// Set cookie from default variables
+			$this->input->set_cookie("language", config_item('language'), $time_expired);
+		
+		} else {
+		
+			// Set language from database 
+			$this->config->set_item('language', $cookie);
+			
+		}
+		
+		//$this->template->theme  		= 'default';
+		//$this->template->title  		= 'Page Title';
+		//$this->template->meta_data  	= array();
 
-		//$this->template->layout     = 'template/public/site_template';
+		//$this->template->layout     	= 'template/public/site_template';
 
 		//print_r($this->template);
+		
+		//print_r(config_item('language'));
 
     }
 	

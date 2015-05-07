@@ -6,13 +6,13 @@
 				<i class="fa fa-bars fa-inverse"></i>
 			</button>
 			<a class="navbar-brand" href="index.html">
-				<h1><img src="<?=base_url();?>assets/public/img/dentsu_small.png"/></h1>
+				<h1 class="hidden"><img src="<?=base_url();?>assets/public/img/dentsu_small.png"/></h1>
 			</a>
 		</div>
 
 		<!-- Collect the nav links, forms, and other content for toggling -->
 		<div class="collapse navbar-collapse navbar-right navbar-main-collapse">
-			<ul class="nav navbar-nav">
+			<ul class="nav navbar-nav hidden">
 			  <li class="active"><a href="#intro">Home</a></li>
 			  <li><a href="#about">About</a></li>
 			  <li><a href="#service">Service</a></li>
@@ -32,18 +32,19 @@
 		<div class="navbar navbar-right">
 			<ul class="list-inline">
 				<?php foreach ($languages as $language) { 
-				if ($language->default == 1) {
+				if ($language->prefix == config_item('language')) {
 				?>
-				<li><?php echo $language->name;?></li>
+				<li><img src="<?php echo base_url('assets/public/img/flags').'/'.$language->prefix;?>.png"/>
+					<?php echo $language->name;?></li>
 				<?php
 				} else {
 				?>
-				<li><a href="#"><?php echo $language->name;?></a></li>
+				<li><img src="<?php echo base_url('assets/public/img/flags').'/'.$language->prefix;?>.png"/>
+					<a href="<?php echo base_url('language/'.$language->prefix);?>"><?php echo $language->name;?></a></li>
 				<?php } 
 				}
 				?>
 			</ul>
-			
 		</div>
 		
 		<!-- /.navbar-collapse -->

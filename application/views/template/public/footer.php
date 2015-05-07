@@ -1,17 +1,19 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed'); ?>
-	
-	<footer>
+	<style>
+		.footer {
+			position: absolute;
+			bottom: 0;
+			width: 100%;
+			/* Set the fixed height of the footer here */
+			height: 60px;
+			background-color: #f5f5f5;
+		  }
+	</style>
+	<footer class="footer">
 		<div class="container">
 			<div class="row">
-				<div class="col-md-12 col-lg-12">
-					<div class="wow shake" data-wow-delay="0.4s">
-					<div class="page-scroll marginbot-30">
-						<a href="#intro" id="totop" class="btn btn-circle">
-							<i class="fa fa-angle-double-up animated"></i>
-						</a>
-					</div>
-					</div>
-					<p>&copy;Copyright 2014 - Dentsu Digital Division. All rights reserved.</p>
+				<div class="col-lg-12">
+					<p>&copy;Copyright 2014. All rights reserved.</p>
 				</div>
 			</div>	
 		</div>

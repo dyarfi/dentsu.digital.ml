@@ -164,7 +164,7 @@ class Page extends Admin_Controller {
 		$state = $crud->getState();
 		$state_info = $crud->getStateInfo();
 
-		//$crud->callback_update(array($this,'_callback_update_detail'));
+		$crud->callback_update(array($this,'_callback_update_detail'));
 		$crud->unset_list();
 		
 		//print_r($crud);
@@ -192,6 +192,7 @@ class Page extends Admin_Controller {
 			$object['lang_id']	= $lang_id;
 			$object['page_id']	= $page_id;
 			$object['user_id']  = $this->user->id;
+			$object['status']  	= 0;
 			$this->db->insert('tbl_page_details',$object);
 			redirect(strtolower(__CLASS__).'/detail/edit/'.$this->db->insert_id());
 		}
@@ -245,11 +246,11 @@ class Page extends Admin_Controller {
     }
     
 	public function _callback_update_detail($post, $primary_key) {
-		print_r($post);
-		exit;
-		
-		
-		//return $this->db->update('tbl_page_details',$post,array('id' => $primary_key));
+		// Unset status first and change to 1
+		unset($post['status']);
+		$post['status']  	= 1;
+		// Return update database
+		return $this->db->update('tbl_page_details',$post,array('id' => $primary_key));
 	}
 	
     private function load($crud, $nav) {
