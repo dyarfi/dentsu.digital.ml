@@ -5,7 +5,7 @@
 		<div class="content">
 			<ul class="list-inline">
 			<?php foreach ($menus as $menu) { ?>
-				<li><a href="#"><?php echo $menu->name;?></a></li>
+				<li><a href="<?php echo base_url('page/'.$menu->title);?>"><?php echo $menu->name;?></a></li>
 			<?php } ?>
 			</ul>
 		</div>	

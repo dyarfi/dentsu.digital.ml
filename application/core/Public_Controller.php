@@ -70,7 +70,6 @@ class Public_Controller extends MY_Controller {
 			$this->config->set_item('language', $cookie);
 			
 		}
-		
 		//$this->template->theme  		= 'default';
 		//$this->template->title  		= 'Page Title';
 		//$this->template->meta_data  	= array();

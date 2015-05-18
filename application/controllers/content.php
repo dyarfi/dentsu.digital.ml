@@ -14,7 +14,7 @@ class Content extends Public_Controller {
 	//public function index() { }
 	
 	public function view($menu='') {
-				
+
 		// Set Language list
 		$data['languages']	= $this->Languages->getAllLanguage();
 		

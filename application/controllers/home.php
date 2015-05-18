@@ -77,7 +77,6 @@ class Home extends Public_Controller {
 		
 		//print_r($this->Content->getContent('page_details'));
 		
-		
 	}
 	
 	public function index() {
